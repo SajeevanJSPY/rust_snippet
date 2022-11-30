@@ -3,7 +3,7 @@ use rust_snipper::{HTMLElement, HTMLKind, format_a_single_element, write_the_htm
 fn main() {
     let path = "output/index.html";
     let h1 = HTMLElement {
-        name: HTMLKind::h1,
+        name: HTMLKind::H1,
         content: String::from("Hello World")
     };
     let files = format_a_single_element(h1);

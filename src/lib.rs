@@ -1,4 +1,3 @@
-use std::io;
 use std::fs;
 
 pub fn format_a_single_element(html_element: HTMLElement) -> String {
@@ -7,12 +6,12 @@ pub fn format_a_single_element(html_element: HTMLElement) -> String {
 
 #[derive(Debug)]
 pub enum HTMLKind {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6
+    H1,
+    H2,
+    H3,
+    H4,
+    H5,
+    H6
 }
 
 pub struct HTMLElement {
@@ -23,8 +22,8 @@ pub struct HTMLElement {
 pub fn write_the_html_file(files: String, path: &str) -> String{
     let result = fs::write(path, files);
     match result {
-        Err(e) => String::from("Error on writing Files"),
-        Ok(res) => String::from("Successfully Wrote the File")
+        Err(_e) => String::from("Error on writing Files"),
+        Ok(_res) => String::from("Successfully Wrote the File")
     }
 }
 
