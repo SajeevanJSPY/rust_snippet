@@ -27,3 +27,11 @@ pub fn write_the_html_file(files: String, path: &str) -> String{
         Ok(res) => String::from("Successfully Wrote the File")
     }
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn exploration() {
+        assert_eq!(2 + 2, 4);
+    }
+}
