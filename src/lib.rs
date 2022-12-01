@@ -1,7 +1,8 @@
-use std::{fs, string};
+use std::fs;
 
 pub fn format_a_single_element(html_element: HTMLElement) -> String {
-    format!("<{:?}>{}</{:?}>", html_element.name, html_element.content, html_element.name)
+    let html_tag = format!("{:?}", html_element.name).to_lowercase().replace("\"", "");
+    format!("<{:?}>{}</{:?}>", html_tag, html_element.content, html_tag)
 }
 
 #[derive(Debug)]
@@ -36,7 +37,7 @@ pub fn creating_the_proper_htmlfile(html_content: String) -> String {
 ",
     "Hello World",
     html_content
-    ).replace("\'", "\"").to_lowercase()
+    ).replace("\'", "\"")
 }
 
 pub fn write_the_html_file(files: String, path: &str) -> String{
@@ -49,8 +50,24 @@ pub fn write_the_html_file(files: String, path: &str) -> String{
 
 #[cfg(test)]
 mod tests {
+    use crate::{HTMLElement, HTMLKind};
+
     #[test]
-    fn exploration() {
-        assert_eq!(2 + 2, 4);
+    fn formatted_element(){ 
+    //     let html_tag = format!("{:?}", html_element.name).to_lowercase().replace("\"", "");
+    // format!("<{:?}>{}</{:?}>", html_tag, html_element.content, html_tag)
+
+        let h1 = HTMLElement {
+            name: HTMLKind::H1,
+            content: String::from("Hello World")
+        };
+        assert_eq!("H1", format!("{:?}", h1.name));
+
+        let formatted_html_kind = format!("{:?}", h1.name);
+        assert_eq!(formatted_html_kind.to_lowercase(), "h1");
+
+        let formatted_and_lowercased_html_kind = formatted_html_kind.to_lowercase();
+        let html_tag = format!("<{}>{}</{}>", formatted_and_lowercased_html_kind, h1.content, formatted_and_lowercased_html_kind);
+        assert_eq!("<h1>Hello World</h1>", html_tag);
     }
 }
