@@ -22,7 +22,7 @@ pub struct HTMLElement {
 pub fn creating_the_proper_htmlfile(html_content: String) -> String {
     format!(
 "<!DOCTYPE html>
-<html lang=en'>
+<html lang='en'>
 <head>
     <meta charset='UTF-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -36,7 +36,7 @@ pub fn creating_the_proper_htmlfile(html_content: String) -> String {
 ",
     "Hello World",
     html_content
-    )
+    ).replace("\'", "\"").to_lowercase()
 }
 
 pub fn write_the_html_file(files: String, path: &str) -> String{
