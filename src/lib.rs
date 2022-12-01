@@ -1,8 +1,8 @@
 use std::fs;
 
 pub fn format_a_single_element(html_element: HTMLElement) -> String {
-    let html_tag = format!("{:?}", html_element.name).to_lowercase().replace("\"", "");
-    format!("<{:?}>{}</{:?}>", html_tag, html_element.content, html_tag)
+    let single_tag = format!("{:?}", html_element.name).to_lowercase();
+    format!("<{}>{}</{}>", single_tag, html_element.content, single_tag)
 }
 
 #[derive(Debug)]
@@ -54,9 +54,7 @@ mod tests {
 
     #[test]
     fn formatted_element(){ 
-    //     let html_tag = format!("{:?}", html_element.name).to_lowercase().replace("\"", "");
-    // format!("<{:?}>{}</{:?}>", html_tag, html_element.content, html_tag)
-
+        // Should Properly Structuring a single tag
         let h1 = HTMLElement {
             name: HTMLKind::H1,
             content: String::from("Hello World")
