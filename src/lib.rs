@@ -1,5 +1,3 @@
-use std::fs;
-
 pub fn format_a_single_element(html_element: HTMLElement) -> String {
     let single_tag = format!("{:?}", html_element.name).to_lowercase();
     format!("<{}>{}</{}>", single_tag, html_element.content, single_tag)
@@ -53,14 +51,6 @@ pub fn creating_the_proper_htmlfile(html_content: String) -> String {
     "Hello World",
     html_content
     ).replace("\'", "\"")
-}
-
-pub fn write_the_html_file(files: String, path: &str) -> String{
-    let result = fs::write(path, files);
-    match result {
-        Err(_e) => String::from("Error on writing Files"),
-        Ok(_res) => String::from("Successfully Wrote the File")
-    }
 }
 
 #[cfg(test)]

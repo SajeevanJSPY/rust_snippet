@@ -1,4 +1,7 @@
-use rust_snipper::{HTMLElement, HTMLKind, format_a_single_element, write_the_html_file, creating_the_proper_htmlfile};
+use rust_snipper::{HTMLElement, HTMLKind, format_a_single_element, creating_the_proper_htmlfile};
+mod output_files;
+
+use output_files::write_the_html_file;
 
 fn main() {
     let path = "output/index.html";
