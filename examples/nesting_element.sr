@@ -1,0 +1,36 @@
+## Example
+let li_1 = HTMLElement {
+    content: "Home",
+    name: HTMLKind::LI,
+    children: None
+}
+
+let li_2 = HTMLElement {
+    content: "About",
+    name: HTMLKind::LI,
+    children: None
+}
+
+let li_3 = HTMLElement {
+    content: "",
+    name: HTMLKind::LI,
+    children: vec![]
+}
+
+let li_3_a = HTMLElement {
+    content: "Articles",
+    name: HTMLKind::a,
+    children: None
+}
+
+let ul = HTMLElement {
+    content: "",
+    name: HTMLKind::UL,
+    children: vec![]
+}
+
+let navbar = HTMLElement {
+    content: "",
+    name: HTMLKind::NAV,
+    children: vec![]
+}
