@@ -5,6 +5,19 @@ pub fn format_a_single_element(html_element: HTMLElement) -> String {
     format!("<{}>{}</{}>", single_tag, html_element.content, single_tag)
 }
 
+pub fn setting_up_formatter(html_element: HTMLElement) {
+    let mut html_elements: Vec<HTMLElement> = vec![];
+
+    match html_element.children {
+        None => {
+            ()
+        }
+        Some(_) => {
+            ()
+        }
+    }
+}
+
 #[derive(Debug)]
 pub enum HTMLKind {
     H1,
