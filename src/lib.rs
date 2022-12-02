@@ -6,7 +6,7 @@ pub fn format_a_single_element(html_element: HTMLElement) -> String {
 }
 
 pub fn setting_up_formatter(html_element: HTMLElement) {
-    let mut html_elements: Vec<HTMLElement> = vec![];
+    // let mut html_elements: Vec<HTMLElement> = vec![];
 
     match html_element.children {
         None => {
@@ -28,6 +28,7 @@ pub enum HTMLKind {
     H6
 }
 
+#[derive(Debug)]
 pub struct HTMLElement {
     pub name: HTMLKind,
     pub content: String,
@@ -64,7 +65,7 @@ pub fn write_the_html_file(files: String, path: &str) -> String{
 
 #[cfg(test)]
 mod tests {
-    use crate::{HTMLElement, HTMLKind};
+    use crate::{HTMLElement, HTMLKind, format_a_single_element};
 
     #[test]
     fn formatted_element(){ 
@@ -87,7 +88,6 @@ mod tests {
     #[test]
     fn setting_up_formatter() {
         // Should Properly Destructure the Nested Tags
-        let mut html_elements: Vec<HTMLElement> = vec![];
 
         // HTML Nested Elements
         let child_element_1 = HTMLElement {
@@ -115,7 +115,30 @@ mod tests {
             children: Some(vec![child_element_1, child_element_2, child_element_3])
         };
 
-        // Destruct the Main Element
+        let mut html_elements: Vec<HTMLElement> = vec![];
         
+        // Destructure the Simply Nested Main Element
+        match main_element.children {
+            None => {
+                format_a_single_element(main_element);
+            }
+            Some(vec) => {
+                html_elements.extend(vec);
+                println!("{:?}", html_elements);
+            }
+        }
+
+        for ele in html_elements {
+            match ele.children {
+                None => {
+                    let text_content = &ele.content;
+                    assert_eq!(format!("<h3>{text_content}</h3>"), format_a_single_element(ele));
+                }
+                Some(_) => {
+                    
+                }
+            }
+        }
+
     }
 }
