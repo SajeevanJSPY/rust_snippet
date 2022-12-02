@@ -5,7 +5,8 @@ fn main() {
 
     let h1 = HTMLElement {
         name: HTMLKind::H1,
-        content: String::from("Hello World")
+        content: String::from("Hello World"),
+        children: None
     };
 
     let code = creating_the_proper_htmlfile(format_a_single_element(h1));

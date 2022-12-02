@@ -17,7 +17,8 @@ pub enum HTMLKind {
 
 pub struct HTMLElement {
     pub name: HTMLKind,
-    pub content: String
+    pub content: String,
+    pub children: Option<Vec<HTMLElement>>
 }
 
 pub fn creating_the_proper_htmlfile(html_content: String) -> String {
@@ -57,7 +58,8 @@ mod tests {
         // Should Properly Structuring a single tag
         let h1 = HTMLElement {
             name: HTMLKind::H1,
-            content: String::from("Hello World")
+            content: String::from("Hello World"),
+            children: None
         };
         assert_eq!("H1", format!("{:?}", h1.name));
 

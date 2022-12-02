@@ -4,5 +4,6 @@
 ## Structure
 *Macros* -> HTML File
 Adding Essential Details of HTML Page
+Add the Optional Children Attr
 
 ## Testing
