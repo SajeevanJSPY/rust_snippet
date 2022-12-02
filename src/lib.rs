@@ -83,4 +83,39 @@ mod tests {
         let html_tag = format!("<{}>{}</{}>", formatted_and_lowercased_html_kind, h1.content, formatted_and_lowercased_html_kind);
         assert_eq!("<h1>Hello World</h1>", html_tag);
     }
+
+    #[test]
+    fn setting_up_formatter() {
+        // Should Properly Destructure the Nested Tags
+        let mut html_elements: Vec<HTMLElement> = vec![];
+
+        // HTML Nested Elements
+        let child_element_1 = HTMLElement {
+            content: String::from("Home"),
+            name: HTMLKind::H3,
+            children: None
+        };
+        
+        let child_element_2 = HTMLElement {
+            content: String::from("About"),
+            name: HTMLKind::H3,
+            children: None
+        };
+
+        
+        let child_element_3 = HTMLElement {
+            content: String::from("Status"),
+            name: HTMLKind::H3,
+            children: None
+        };
+
+        let main_element = HTMLElement {
+            content: String::from(""),
+            name: HTMLKind::H2,
+            children: Some(vec![child_element_1, child_element_2, child_element_3])
+        };
+
+        // Destruct the Main Element
+        
+    }
 }
