@@ -16,6 +16,6 @@ fn main() {
         children: None
     };
 
-    let code = creating_the_proper_htmlfile(format_a_single_element(h1));
+    let code = creating_the_proper_htmlfile(format_a_single_element(h1.name, h1.content));
     write_the_html_file(code, path);
 }

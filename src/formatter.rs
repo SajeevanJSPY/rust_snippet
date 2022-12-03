@@ -1,4 +1,4 @@
-use rust_snipper::HTMLElement;
+use rust_snipper::{HTMLElement, HTMLKind};
 
 pub fn creating_the_proper_htmlfile(html_content: String) -> String {
     format!(
@@ -20,12 +20,12 @@ pub fn creating_the_proper_htmlfile(html_content: String) -> String {
     ).replace("\'", "\"")
 }
 
-pub fn format_a_single_element(html_element: HTMLElement) -> String {
-    let single_tag = format!("{:?}", html_element.name).to_lowercase();
-    format!("<{}>{}</{}>", single_tag, html_element.content, single_tag)
+pub fn format_a_single_element(html_element_name: HTMLKind, html_element_content: String) -> String {
+    let single_tag = format!("{:?}", html_element_name).to_lowercase();
+    format!("<{}>{}</{}>", single_tag, html_element_content, single_tag)
 }
 
-pub fn setting_up_formatter(html_element: HTMLElement) {
+pub fn _setting_up_formatter(html_element: HTMLElement) {
     // let mut html_elements: Vec<HTMLElement> = vec![];
 
     match html_element.children {
@@ -44,6 +44,37 @@ mod tests {
     use rust_snipper::{HTMLKind, HTMLElement};
     use super::format_a_single_element;
 
+    fn checking_nested(html_element: HTMLElement) -> String {
+        match html_element.children {
+            None => format_a_single_element(html_element.name, html_element.content),
+            Some(_) => String::from("Exist")
+        }
+    }
+
+    // fn destructure_nested_elements(html_element: HTMLElement) {
+    //     let parent_element = format_a_single_element(html_element.name, html_element.content);
+
+    // }
+
+    // fn destructure_child_elements(html_element: HTMLElement) {
+            
+    //     let parent_element = format_a_single_element(html_element.name, html_element.content);
+    //     let child_element = html_element.children.unwrap();
+    //     for ele in child_element {
+    //         match ele.children {
+    //             None => {
+    //                 format_a_single_element(ele.name, ele.content);
+    //             }
+    //             Some(_) => {
+    //                 destructure_child_elements(ele);
+                    
+    //             }
+    //         }
+    //     }
+
+    //     println!("{}", parent_element);
+    // }
+
     #[test]
     fn setting_up_formatter() {
         // Should Properly Destructure the Nested Tags
@@ -61,7 +92,6 @@ mod tests {
             children: None
         };
 
-        
         let child_element_3 = HTMLElement {
             content: String::from("Status"),
             name: HTMLKind::H3,
@@ -74,30 +104,8 @@ mod tests {
             children: Some(vec![child_element_1, child_element_2, child_element_3])
         };
 
-        let mut html_elements: Vec<HTMLElement> = vec![];
-        
         // Destructure the Simply Nested Main Element
-        match main_element.children {
-            None => {
-                format_a_single_element(main_element);
-            }
-            Some(vec) => {
-                html_elements.extend(vec);
-                println!("{:?}", html_elements);
-            }
-        }
-
-        for ele in html_elements {
-            match ele.children {
-                None => {
-                    let text_content = &ele.content;
-                    assert_eq!(format!("<h3>{text_content}</h3>"), format_a_single_element(ele));
-                }
-                Some(_) => {
-                    
-                }
-            }
-        }
+        // destructure_nested_elements(main_element);
 
     }
 
