@@ -1,4 +1,4 @@
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum HTMLKind {
     H1,
     H2,
@@ -8,7 +8,7 @@ pub enum HTMLKind {
     H6
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct HTMLElement {
     pub name: HTMLKind,
     pub content: String,
