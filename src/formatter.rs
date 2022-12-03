@@ -61,6 +61,26 @@ mod tests {
         };
 
         assert_eq!(checking_nested(one_element.clone()), format_a_single_element(one_element.name, one_element.content));
+
+        let child_element_1 = HTMLElement {
+            content: String::from("Home"),
+            name: HTMLKind::H3,
+            children: None
+        };
+        
+        let child_element_2 = HTMLElement {
+            content: String::from("About"),
+            name: HTMLKind::H3,
+            children: None
+        };
+
+        let nested_element = HTMLElement {
+            name: HTMLKind::H2,
+            content: String::from(""),
+            children: Some(vec![child_element_1, child_element_2])
+        };
+
+        assert_eq!(checking_nested(nested_element.clone()), String::from("Exist"));
     }
 
     #[test]
