@@ -25,10 +25,10 @@ pub fn format_a_single_element(html_element_name: HTMLKind, html_element_content
     format!("<{}>{}</{}>", single_tag, html_element_content, single_tag)
 }
 
-fn checking_nested(html_element: HTMLElement) -> String {
+fn checking_nested(html_element: HTMLElement) -> Result<String, &'static str> {
     match html_element.children {
-        None => format_a_single_element(html_element.name, html_element.content),
-        Some(_) => String::from("Exist")
+        None => Ok(format_a_single_element(html_element.name, html_element.content)),
+        Some(_) => Err("Child Elements Exist")
     }
 }
 
@@ -59,8 +59,13 @@ mod tests {
             name: HTMLKind::H2,
             children: None
         };
+        
+        let one_element_result = match checking_nested(one_element) {
+            Err(e) => e,
+            Ok(_v) => "Ok" 
+        };
 
-        assert_eq!(checking_nested(one_element.clone()), format_a_single_element(one_element.name, one_element.content));
+        assert_eq!(one_element_result, "Ok");
 
         let child_element_1 = HTMLElement {
             content: String::from("Home"),
@@ -80,7 +85,13 @@ mod tests {
             children: Some(vec![child_element_1, child_element_2])
         };
 
-        assert_eq!(checking_nested(nested_element.clone()), String::from("Exist"));
+        let nested_element_result = match checking_nested(nested_element) {
+            Err(e) => e,
+            Ok(_v) => "Ok" 
+        };
+
+        assert_eq!(nested_element_result, "Ok");
+
     }
 
     #[test]
