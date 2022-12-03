@@ -60,13 +60,7 @@ mod tests {
             children: None
         };
 
-        let one_element_2 = HTMLElement {
-            content: String::from("Sajeevan"),
-            name: HTMLKind::H2,
-            children: None
-        };
-        
-        assert_eq!(checking_nested(one_element), format_a_single_element(one_element_2.name, one_element_2.content));
+        assert_eq!(checking_nested(one_element.clone()), format_a_single_element(one_element.name, one_element.content));
     }
 
     #[test]
