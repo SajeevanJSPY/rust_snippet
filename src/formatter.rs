@@ -25,6 +25,13 @@ pub fn format_a_single_element(html_element_name: HTMLKind, html_element_content
     format!("<{}>{}</{}>", single_tag, html_element_content, single_tag)
 }
 
+fn checking_nested(html_element: HTMLElement) -> String {
+    match html_element.children {
+        None => format_a_single_element(html_element.name, html_element.content),
+        Some(_) => String::from("Exist")
+    }
+}
+
 pub fn _setting_up_formatter(html_element: HTMLElement) {
     // let mut html_elements: Vec<HTMLElement> = vec![];
 
@@ -42,38 +49,25 @@ pub fn _setting_up_formatter(html_element: HTMLElement) {
 #[cfg(test)]
 mod tests {
     use rust_snipper::{HTMLKind, HTMLElement};
-    use super::format_a_single_element;
+    use super::{format_a_single_element, checking_nested};
 
-    fn checking_nested(html_element: HTMLElement) -> String {
-        match html_element.children {
-            None => format_a_single_element(html_element.name, html_element.content),
-            Some(_) => String::from("Exist")
-        }
+    #[test]
+    fn checking_nested_test() {
+        // Checking the checking_test Function
+        let one_element = HTMLElement {
+            content: String::from("Sajeevan"),
+            name: HTMLKind::H2,
+            children: None
+        };
+
+        let one_element_2 = HTMLElement {
+            content: String::from("Sajeevan"),
+            name: HTMLKind::H2,
+            children: None
+        };
+        
+        assert_eq!(checking_nested(one_element), format_a_single_element(one_element_2.name, one_element_2.content));
     }
-
-    // fn destructure_nested_elements(html_element: HTMLElement) {
-    //     let parent_element = format_a_single_element(html_element.name, html_element.content);
-
-    // }
-
-    // fn destructure_child_elements(html_element: HTMLElement) {
-            
-    //     let parent_element = format_a_single_element(html_element.name, html_element.content);
-    //     let child_element = html_element.children.unwrap();
-    //     for ele in child_element {
-    //         match ele.children {
-    //             None => {
-    //                 format_a_single_element(ele.name, ele.content);
-    //             }
-    //             Some(_) => {
-    //                 destructure_child_elements(ele);
-                    
-    //             }
-    //         }
-    //     }
-
-    //     println!("{}", parent_element);
-    // }
 
     #[test]
     fn setting_up_formatter() {
@@ -104,8 +98,6 @@ mod tests {
             children: Some(vec![child_element_1, child_element_2, child_element_3])
         };
 
-        // Destructure the Simply Nested Main Element
-        // destructure_nested_elements(main_element);
 
     }
 
