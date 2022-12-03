@@ -90,7 +90,7 @@ mod tests {
             Ok(_v) => "Ok" 
         };
 
-        assert_eq!(nested_element_result, "Ok");
+        assert_ne!(nested_element_result, "Ok");
 
     }
 
