@@ -123,6 +123,14 @@ mod tests {
             children: Some(vec![child_element_1, child_element_2, child_element_3])
         };
 
+        let checking_element = checking_nested(main_element);
+
+        let element = match checking_element {
+            Ok(str) => str,
+            Err(_) => String::from("Err")
+        };
+
+        assert_eq!(element, String::from("Err"));
 
     }
 
