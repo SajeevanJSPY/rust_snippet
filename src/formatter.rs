@@ -20,9 +20,8 @@ pub fn creating_the_proper_htmlfile(html_content: String) -> String {
     ).replace("\'", "\"")
 }
 
-pub fn format_a_single_element(html_element_name: HTMLKind, html_element_content: String) -> String {
-    let single_tag = format!("{:?}", html_element_name).to_lowercase();
-    format!("<{}>{}</{}>", single_tag, html_element_content, single_tag)
+pub fn single_tag(single_tag: String, tag_content: String) -> String {
+    format!("<{single_tag}>{tag_content}</{single_tag}>")
 }
 
 pub fn checking_nested(html_element: HTMLElement) -> Result<String, &'static str> {
