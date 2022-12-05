@@ -14,6 +14,6 @@ mod tests {
         let h2_2 = HTMLElement::new(HTMLKind::H2, String::from(""), None);
 
         let h1 = HTMLElement::new(HTMLKind::H1, String::from("Hello"), Some(vec![h2_1, h2_2]));
-        assert_eq!(h1.is_nested(), true)
+        assert_eq!(h1.is_nested(), true);
     }
 }
