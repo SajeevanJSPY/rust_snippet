@@ -20,13 +20,20 @@ impl HTMLKind {
 
 #[derive(Debug, Clone)]
 pub struct HTMLElement {
-    name: String,
-    content: String,
-    children: Option<Vec<HTMLElement>>
+    pub name: String,
+    pub content: String,
+    pub children: Option<Vec<HTMLElement>>
 }
 
 impl HTMLElement {
     pub fn new(name: String, content: String, children: Option<Vec<Self>>) -> Self {
         HTMLElement { name, content, children }
+    }
+    pub fn is_nested(&self) -> bool {
+        if let None = self.children {
+            false
+        } else {
+            true
+        }
     }
 }

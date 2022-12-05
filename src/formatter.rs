@@ -24,13 +24,6 @@ pub fn single_tag(single_tag: String, tag_content: String) -> String {
     format!("<{single_tag}>{tag_content}</{single_tag}>")
 }
 
-pub fn checking_nested(html_element: HTMLElement) -> Result<String, &'static str> {
-    match html_element.children {
-        None => Ok(format_a_single_element(html_element.name, html_element.content)),
-        Some(_) => Err("Child Elements Exist")
-    }
-}
-
 pub fn _setting_up_formatter(html_element: HTMLElement) {
     // let mut html_elements: Vec<HTMLElement> = vec![];
 
