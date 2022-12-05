@@ -14,7 +14,13 @@ pub enum HTMLKind {
 
 #[derive(Debug, Clone)]
 pub struct HTMLElement {
-    pub name: HTMLKind,
-    pub content: String,
-    pub children: Option<Vec<HTMLElement>>
+    name: HTMLKind,
+    content: String,
+    children: Option<Vec<HTMLElement>>
+}
+
+impl HTMLElement {
+    fn new(name: HTMLKind, content: String, children: Option<Vec<Self>>) -> Self {
+        HTMLElement { name, content, children }
+    }
 }
