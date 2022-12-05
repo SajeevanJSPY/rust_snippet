@@ -20,13 +20,13 @@ impl HTMLKind {
 
 #[derive(Debug, Clone)]
 pub struct HTMLElement {
-    name: HTMLKind,
+    name: String,
     content: String,
     children: Option<Vec<HTMLElement>>
 }
 
 impl HTMLElement {
-    pub fn new(name: HTMLKind, content: String, children: Option<Vec<Self>>) -> Self {
+    pub fn new(name: String, content: String, children: Option<Vec<Self>>) -> Self {
         HTMLElement { name, content, children }
     }
 }
