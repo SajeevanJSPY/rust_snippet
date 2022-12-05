@@ -1,4 +1,4 @@
-pub fn creating_the_proper_htmlfile(html_content: String) -> String {
+pub fn html_file(html_content: String) -> String {
     format!(
 "<!DOCTYPE html>
 <html lang='en'>
