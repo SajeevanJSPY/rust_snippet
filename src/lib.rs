@@ -1,3 +1,7 @@
+// Modules
+pub mod formatter;
+pub mod output_files;
+
 #[derive(Debug, Clone)]
 pub enum HTMLKind {
     H1,
@@ -13,9 +17,4 @@ pub struct HTMLElement {
     pub name: HTMLKind,
     pub content: String,
     pub children: Option<Vec<HTMLElement>>
-}
-
-#[cfg(test)]
-mod tests {
-    
 }

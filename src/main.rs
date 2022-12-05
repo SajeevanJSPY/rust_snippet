@@ -1,11 +1,6 @@
-// Modules
-mod output_files;
-mod formatter;
-
-// Getting into the scope
-use formatter::{creating_the_proper_htmlfile, format_a_single_element};
+use rust_snipper::formatter::{creating_the_proper_htmlfile, format_a_single_element};
 use rust_snipper::{HTMLElement, HTMLKind};
-use output_files::write_the_html_file;
+use rust_snipper::output_files::write_the_html_file;
 
 fn main() {
     let path = "output/index.html";
