@@ -2,6 +2,8 @@
 #[allow(dead_code, unused_variables, unused_imports)]
 mod tests {
     use std::fs;
+    use std::io::{self, Read};
+    use std::process;
 
     // Fields -> Folder Name, File Name, Overwrite
     #[test]
@@ -9,7 +11,7 @@ mod tests {
         let folder_name = "outputa";
         let file_name = "index.html";
         let dummy_content = "Hello World";
-        let overwrite: bool = true;
+        let overwrite: bool = false;
 
         let read_folder = fs::read_dir(folder_name);
         
@@ -35,5 +37,21 @@ mod tests {
                 println!("Error On Creating the Folder, try again...");
             }
         }
+
+        // // If the file already exist in the folder, Ask Permission to overwrite it
+        if is_file_exist && overwrite {
+            print!("Do You want to overwrite {folder_name}/{file_name}: ");
+            let mut permission_status = String::new();
+            let permission_result = io::stdin().read_to_string(&mut permission_status);
+            if let Ok(_) = permission_result {
+                permission_status = permission_status.to_lowercase();
+                if permission_status == "y" && permission_status == "yes" {
+                    println!("Overwriting the File");                    
+                }
+            } else {
+                process::exit(0);
+            }
+        }
+
     }
 }
