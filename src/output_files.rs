@@ -1,4 +1,6 @@
 use std::fs::{self, ReadDir};
+use std::io::{self, Read};
+use std::process;
 
 pub struct FileControl {
     pub folder_name: &'static str,
@@ -44,6 +46,25 @@ impl FileControl {
             }
         } else {
             println!("Error On Creating the Folder, try again...");
+        }
+    }
+    pub fn exec(&mut self) {
+        self.check_file_exist();
+        if self.is_file_exist {
+            print!(
+                "Do You want to overwrite {}/{}: ",
+                self.folder_name, self.file_name
+            );
+            let mut permission_status = String::new();
+            let permission_result = io::stdin().read_to_string(&mut permission_status);
+            if let Ok(_) = permission_result {
+                permission_status = permission_status.to_lowercase();
+                if permission_status == "y" && permission_status == "yes" {
+                    println!("Overwriting the File");
+                }
+            }
+        } else {
+            process::exit(0);
         }
     }
 }
