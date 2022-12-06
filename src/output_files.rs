@@ -1,5 +1,11 @@
 use std::fs;
 
+struct FileControl {
+    folder_name: &'static str,
+    file_name: &'static str,
+    overwrite: bool,
+}
+
 pub fn write_html(files: String, path: &str) -> String{
     let result = fs::write(path, files);
 
