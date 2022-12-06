@@ -1,10 +1,10 @@
 use std::fs::{self, ReadDir};
 
 pub struct FileControl {
-    folder_name: &'static str,
-    file_name: &'static str,
-    overwrite: bool,
-    is_file_exist: bool,
+    pub folder_name: &'static str,
+    pub file_name: &'static str,
+    pub overwrite: bool,
+    pub is_file_exist: bool,
 }
 
 impl FileControl {
