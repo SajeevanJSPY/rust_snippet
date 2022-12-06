@@ -1,22 +1,38 @@
 use std::fs::{self, ReadDir};
 
-struct FileControl {
+pub struct FileControl {
     folder_name: &'static str,
     file_name: &'static str,
     overwrite: bool,
-    is_file_exist: bool
+    is_file_exist: bool,
 }
 
 impl FileControl {
-    fn new(folder_name: &'static str, file_name: &'static str, overwrite: bool) -> Self {
-        FileControl { folder_name, file_name, overwrite, is_file_exist: false }
+    pub fn new(folder_name: &'static str, file_name: &'static str, overwrite: bool) -> Self {
+        FileControl {
+            folder_name,
+            file_name,
+            overwrite,
+            is_file_exist: false,
+        }
     }
-    fn folder_detail(&self) -> Option<ReadDir> {
+    pub fn folder_detail(&self) -> Option<ReadDir> {
         let read_folder = fs::read_dir(self.folder_name);
         if let Ok(read_dir) = read_folder {
             Some(read_dir)
         } else {
             None
+        }
+    }
+    pub fn check_file_exist(&mut self) {
+        if let Some(read_dir) = self.folder_detail() {
+            for file in read_dir {
+                if let Ok(dir_entry) = file {
+                    if dir_entry.file_name() == self.file_name {
+                        self.is_file_exist = true;
+                    }
+                }
+            }
         }
     }
 }
