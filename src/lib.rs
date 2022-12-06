@@ -9,19 +9,23 @@ pub enum HTMLKind {
     H3,
     H4,
     H5,
-    H6
+    H6,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct HTMLElement {
     pub name: HTMLKind,
     pub content: String,
-    pub children: Option<Vec<HTMLElement>>
+    pub children: Option<Vec<HTMLElement>>,
 }
 
 impl HTMLElement {
     pub fn new(name: HTMLKind, content: String, children: Option<Vec<Self>>) -> Self {
-        HTMLElement { name, content, children }
+        HTMLElement {
+            name,
+            content,
+            children,
+        }
     }
     pub fn is_nested(&self) -> bool {
         if let None = self.children {
