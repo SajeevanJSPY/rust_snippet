@@ -6,8 +6,9 @@ mod tests {
     // Fields -> Folder Name, File Name, Overwrite
     #[test]
     fn check_folder() {
-        let folder_name = "output";
+        let folder_name = "outputa";
         let file_name = "index.html";
+        let dummy_content = "Hello World";
         let overwrite: bool = true;
 
         let read_folder = fs::read_dir(folder_name);
@@ -26,7 +27,10 @@ mod tests {
         } else {
             let create_folder = fs::create_dir(folder_name);
             if let Ok(_) = create_folder {
-                println!("Folder was created");
+                let write_result = fs::write(format!("{folder_name}/{file_name}"), dummy_content);
+                if let Err(err) = write_result {
+                    println!("{}", err);
+                }
             } else {
                 println!("Error On Creating the Folder, try again...");
             }
