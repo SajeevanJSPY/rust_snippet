@@ -24,7 +24,12 @@ mod tests {
                 }
             }
         } else {
-            println!("Failed");
+            let create_folder = fs::create_dir(folder_name);
+            if let Ok(_) = create_folder {
+                println!("Folder was created");
+            } else {
+                println!("Error On Creating the Folder, try again...");
+            }
         }
     }
 }
