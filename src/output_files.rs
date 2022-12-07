@@ -41,15 +41,4 @@ impl FileControl {
             }
         }
     }
-    pub fn create_folder(&self) {
-        let create_folder = fs::create_dir(self.folder_name);
-        if let Ok(_) = create_folder {
-            let write_result = fs::write(format!("{}/{}", self.folder_name, self.file_name), "");
-            if let Err(err) = write_result {
-                println!("{}", err);
-            }
-        } else {
-            println!("Error On Creating the Folder, try again...");
-        }
-    }
 }
