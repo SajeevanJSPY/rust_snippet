@@ -18,8 +18,16 @@ impl FileControl {
             is_file_exist: false,
         }
     }
-    pub fn check_file_path(&mut self) {
+
+    fn create_file(&self) {
         let file_path = format!("{}{}{}", self.folder_name, MAIN_SEPARATOR, self.file_name);
+
+        if let Ok(_) = File::create(file_path) {
+            println!("File was created Successfully")
+        }
+    }
+
+    pub fn check_file_path(&mut self) {
         let read_folder = Path::new(self.folder_name);
 
         if read_folder.exists() {
@@ -37,7 +45,7 @@ impl FileControl {
                 println!("you specified path already been taken, do you want to overwrite the file?(y/N): ");
                 let mut buffer = String::new();
                 let stdin = io::stdin();
-                
+
                 if let Err(_) = stdin.read_line(&mut buffer) {
                     println!("not a valid input, try again...")
                 }
@@ -54,9 +62,7 @@ impl FileControl {
             // Create the Folder
             let folder = fs::create_dir(self.folder_name);
             if let Ok(_) = folder {
-                if let Ok(_) = File::create(file_path) {
-                    println!("File was created Successfully")
-                }
+                self.create_file();
             }
         }
     }
