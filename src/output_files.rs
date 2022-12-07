@@ -1,6 +1,5 @@
-use std::fs::{self, ReadDir};
-use std::io::{self, Read};
-use std::process;
+use std::fs::{self, File};
+use std::path::{Path, MAIN_SEPARATOR};
 
 pub struct FileControl {
     pub folder_name: &'static str,
@@ -18,21 +17,26 @@ impl FileControl {
             is_file_exist: false,
         }
     }
-    pub fn folder_detail(&self) -> Option<ReadDir> {
-        let read_folder = fs::read_dir(self.folder_name);
-        if let Ok(read_dir) = read_folder {
-            Some(read_dir)
-        } else {
-            None
-        }
-    }
-    pub fn check_file_exist(&mut self) {
-        if let Some(read_dir) = self.folder_detail() {
-            for file in read_dir {
-                if let Ok(dir_entry) = file {
-                    if dir_entry.file_name() == self.file_name {
-                        self.is_file_exist = true;
+    pub fn check_file_path(&mut self) {
+        let file_path = format!("{}{}{}", self.folder_name, MAIN_SEPARATOR, self.file_name);
+        let read_folder = Path::new(self.folder_name);
+
+        if read_folder.exists() {
+            if let Ok(files) = read_folder.read_dir() {
+                for file in files {
+                    if let Ok(file_name) = file {
+                        if file_name.file_name() == self.file_name {
+                            self.is_file_exist = true;
+                        }
                     }
+                }
+            }
+        } else {
+            // Create the Folder
+            let folder = fs::create_dir(self.folder_name);
+            if let Ok(_) = folder {
+                if let Ok(_) = File::create(file_path) {
+                    println!("File was created Successfully")
                 }
             }
         }
@@ -47,34 +51,5 @@ impl FileControl {
         } else {
             println!("Error On Creating the Folder, try again...");
         }
-    }
-    pub fn exec(&mut self) {
-        self.check_file_exist();
-        if self.is_file_exist {
-            print!(
-                "Do You want to overwrite {}/{}: ",
-                self.folder_name, self.file_name
-            );
-            let mut permission_status = String::new();
-            let permission_result = io::stdin().read_to_string(&mut permission_status);
-            if let Ok(_) = permission_result {
-                permission_status = permission_status.to_lowercase();
-                if permission_status == "y" && permission_status == "yes" {
-                    println!("Overwriting the File");
-                }
-            }
-        } else {
-            process::exit(0);
-        }
-    }
-}
-
-pub fn write_html(files: String, path: &str) -> String {
-    let result = fs::write(path, files);
-
-    if let Ok(_) = result {
-        String::from("Successfully Wrote the File")
-    } else {
-        String::from("Error on writing Files")
     }
 }
