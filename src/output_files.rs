@@ -1,4 +1,5 @@
 use std::fs::{self, File};
+use std::io;
 use std::path::{Path, MAIN_SEPARATOR};
 
 pub struct FileControl {
@@ -33,9 +34,22 @@ impl FileControl {
             }
 
             if self.is_file_exist && self.overwrite {
-                println!("You already have the file, do you want to overwrite the file?(y/N)");
-            }
+                println!("you specified path already been taken, do you want to overwrite the file?(y/N): ");
+                let mut buffer = String::new();
+                let stdin = io::stdin();
+                
+                if let Err(_) = stdin.read_line(&mut buffer) {
+                    println!("not a valid input, try again...")
+                }
 
+                let permission = buffer.to_lowercase().replace("\n", "");
+
+                if permission == "y" || permission == "yes" {
+                    println!("Permission Granted Overwrite the File");
+                } else {
+                    println!("Permission Failed!");
+                }
+            }
         } else {
             // Create the Folder
             let folder = fs::create_dir(self.folder_name);
