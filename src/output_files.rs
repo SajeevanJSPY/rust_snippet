@@ -31,6 +31,11 @@ impl FileControl {
                     }
                 }
             }
+
+            if self.is_file_exist && self.overwrite {
+                println!("You already have the file, do you want to overwrite the file?(y/N)");
+            }
+
         } else {
             // Create the Folder
             let folder = fs::create_dir(self.folder_name);
