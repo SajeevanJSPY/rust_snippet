@@ -53,9 +53,11 @@ impl FileControl {
             }
 
             if self.is_file_exist && self.overwrite {
-                let permission = get_input(String::from("you specified path already been taken, do you want to overwrite the file?(y/N): ")).to_lowercase();
+                let permission = get_input(String::from("you specified path already been taken, do you want to overwrite the file?(y/N) or change the file_name(rename|R): ")).to_lowercase();
                 if permission == "y" || permission == "yes" {
                     self.create_file();
+                } else if permission == "rename" || permission == "r" {
+                    self.set_file_name();
                 } else {
                     println!("Permission Failed!");
                 }
