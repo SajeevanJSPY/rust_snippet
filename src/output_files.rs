@@ -3,14 +3,14 @@ use std::io;
 use std::path::{Path, MAIN_SEPARATOR};
 
 pub struct FileControl {
-    pub folder_name: &'static str,
-    pub file_name: &'static str,
+    pub folder_name: String,
+    pub file_name: String,
     pub overwrite: bool,
     pub is_file_exist: bool,
 }
 
 impl FileControl {
-    pub fn new(folder_name: &'static str, file_name: &'static str, overwrite: bool) -> Self {
+    pub fn new(folder_name: String, file_name: String, overwrite: bool) -> Self {
         FileControl {
             folder_name,
             file_name,
@@ -28,14 +28,16 @@ impl FileControl {
     }
 
     pub fn check_file_path(&mut self) {
-        let read_folder = Path::new(self.folder_name);
+        let read_folder = Path::new(&self.folder_name);
 
         if read_folder.exists() {
             if let Ok(files) = read_folder.read_dir() {
                 for file in files {
                     if let Ok(file_name) = file {
-                        if file_name.file_name() == self.file_name {
-                            self.is_file_exist = true;
+                        if let Ok(file_path) = file_name.file_name().into_string() {
+                            if file_path == self.file_name {
+                                self.is_file_exist = true;
+                            }
                         }
                     }
                 }
@@ -64,7 +66,7 @@ impl FileControl {
             }
         } else {
             // Create the Folder
-            let folder = fs::create_dir(self.folder_name);
+            let folder = fs::create_dir(&self.folder_name);
             if let Ok(_) = folder {
                 self.create_file();
             }

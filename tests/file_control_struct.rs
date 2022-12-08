@@ -7,9 +7,9 @@ mod tests {
 
     #[test]
     fn check_file_path() {
-        let folder_name = "output";
-        let file_name = "index.html";
-        let mut file = FileControl::new(folder_name, file_name, true);
+        let folder_name = String::from("output");
+        let file_name = String::from("index.html");
+        let mut file = FileControl::new(folder_name.clone(), file_name.clone(), true);
         file.check_file_path();
 
         // Explicitly Checking the File Exist Or Not
@@ -17,8 +17,8 @@ mod tests {
         let file_path = Path::new(&path);
         assert_eq!(file_path.exists(), true);
 
-        let folder_name2 = "output2";
-        let file_name2 = "index2.html";
+        let folder_name2 = String::from("output2");
+        let file_name2 = String::from("index2.html");
         let mut file2 = FileControl::new(folder_name2, file_name2, true);
         file2.check_file_path();
 
