@@ -1,6 +1,7 @@
 use std::fs::{self, File};
-use std::io;
 use std::path::{Path, MAIN_SEPARATOR};
+
+use crate::get_input;
 
 pub struct FileControl {
     pub folder_name: String,
@@ -27,6 +28,10 @@ impl FileControl {
         }
     }
 
+    fn set_file_name(&mut self) {
+        self.file_name = get_input(String::from("Change your file_name..."));
+    }
+
     pub fn check_file_path(&mut self) {
         let read_folder = Path::new(&self.folder_name);
 
@@ -48,16 +53,7 @@ impl FileControl {
             }
 
             if self.is_file_exist && self.overwrite {
-                println!("you specified path already been taken, do you want to overwrite the file?(y/N): ");
-                let mut buffer = String::new();
-                let stdin = io::stdin();
-
-                if let Err(_) = stdin.read_line(&mut buffer) {
-                    println!("not a valid input, try again...")
-                }
-
-                let permission = buffer.to_lowercase().replace("\n", "");
-
+                let permission = get_input(String::from("you specified path already been taken, do you want to overwrite the file?(y/N): ")).to_lowercase();
                 if permission == "y" || permission == "yes" {
                     self.create_file();
                 } else {

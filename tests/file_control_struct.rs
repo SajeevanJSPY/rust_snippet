@@ -3,7 +3,7 @@
 
 mod tests {
     use std::path::Path;
-    use rust_snipper::output_files::FileControl;
+    use rust_snipper::{output_files::FileControl, get_input};
 
     #[test]
     fn check_file_path() {
@@ -26,5 +26,12 @@ mod tests {
         let path2 = format!("{folder_name}/{file_name}");
         let file_path2 = Path::new(&path);
         assert_eq!(file_path2.exists(), true);
+    }
+
+    #[test]
+    fn set_file_name() {
+        // Typing index.html
+        let file_name = get_input(String::from("Change your file_name..."));
+        assert_eq!(file_name, "index.html");
     }
 }
