@@ -41,6 +41,10 @@ impl FileControl {
                 }
             }
 
+            if !self.is_file_exist {
+                self.create_file();
+            }
+
             if self.is_file_exist && self.overwrite {
                 println!("you specified path already been taken, do you want to overwrite the file?(y/N): ");
                 let mut buffer = String::new();
@@ -53,7 +57,7 @@ impl FileControl {
                 let permission = buffer.to_lowercase().replace("\n", "");
 
                 if permission == "y" || permission == "yes" {
-                    println!("Permission Granted Overwrite the File");
+                    self.create_file();
                 } else {
                     println!("Permission Failed!");
                 }

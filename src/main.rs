@@ -1,11 +1,8 @@
-use rust_snipper::formatter::html_file;
+// use rust_snipper::formatter::html_file;
 use rust_snipper::output_files::FileControl;
-use rust_snipper::{HTMLElement, HTMLKind};
+// use rust_snipper::{HTMLElement, HTMLKind};
 
 fn main() {
-    let path = "output/index.html";
-
-    let h1 = HTMLElement::new(HTMLKind::H1, String::from("Hello World"), None);
-
-    let code = html_file(h1.single_tag());
+    let mut file_control = FileControl::new("output", "index.html", true);
+    file_control.check_file_path();
 }
