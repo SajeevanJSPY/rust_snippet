@@ -32,21 +32,30 @@ impl FileControl {
         self.file_name = get_input(String::from("Input your file_name..."));
     }
 
-    pub fn check_file_path(&mut self) {
+    fn set_file_exist(&mut self) {
         let read_folder = Path::new(&self.folder_name);
 
-        if read_folder.exists() {
-            if let Ok(files) = read_folder.read_dir() {
-                for file in files {
-                    if let Ok(file_name) = file {
-                        if let Ok(file_path) = file_name.file_name().into_string() {
-                            if file_path == self.file_name {
-                                self.is_file_exist = true;
-                            }
+        if let Ok(files) = read_folder.read_dir() {
+            for file in files {
+                if let Ok(file_name) = file {
+                    if let Ok(file_path) = file_name.file_name().into_string() {
+                        if file_path == self.file_name {
+                            self.is_file_exist = true;
+                            return;
                         }
                     }
                 }
             }
+        }
+
+        self.is_file_exist = false;
+    }
+
+    pub fn check_file_path(&mut self) {
+        let read_folder = Path::new(&self.folder_name);
+
+        if read_folder.exists() {
+            self.set_file_exist();
 
             if !self.is_file_exist {
                 self.create_file();
@@ -57,7 +66,10 @@ impl FileControl {
                 if permission == "y" || permission == "yes" {
                     self.create_file();
                 } else if permission == "rename" || permission == "r" {
-                    self.set_file_name();
+                    while self.is_file_exist {
+                        self.set_file_name();
+                        self.set_file_exist();
+                    }
                     self.create_file();
                 } else {
                     println!("Permission Failed!");
