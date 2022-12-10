@@ -66,9 +66,14 @@ impl FileControl {
                 if permission == "y" || permission == "yes" {
                     self.create_file();
                 } else if permission == "rename" || permission == "r" {
+                    let mut warn_count = 0;
                     while self.is_file_exist {
+                        if warn_count > 0 {
+                            println!("{}: file_name already taken", self.file_name);
+                        }
                         self.set_file_name();
                         self.set_file_exist();
+                        warn_count += 1;
                     }
                     self.create_file();
                 } else {
