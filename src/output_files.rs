@@ -52,6 +52,10 @@ impl FileControl {
     }
 
     pub fn check_file_path(&mut self) {
+        let show_perm_rename = String::from("you specified path already been taken, do you want to overwrite the file?(y/N) or change the file_name(rename|R): ");
+        let show_rename =
+            String::from("you specified path already been taken, change the file_name(rename|R): ");
+
         let read_folder = Path::new(&self.folder_name);
 
         if read_folder.exists() {
@@ -62,7 +66,7 @@ impl FileControl {
             }
 
             if self.is_file_exist && self.overwrite {
-                let permission = get_input(String::from("you specified path already been taken, do you want to overwrite the file?(y/N) or change the file_name(rename|R): ")).to_lowercase();
+                let permission = get_input(show_perm_rename).to_lowercase();
                 if permission == "y" || permission == "yes" {
                     self.create_file();
                 } else if permission == "rename" || permission == "r" {
@@ -82,10 +86,7 @@ impl FileControl {
             }
 
             if self.is_file_exist && !self.overwrite {
-                let permission = get_input(String::from(
-                    "you specified path already been taken, change the file_name(rename|R): ",
-                ))
-                .to_lowercase();
+                let permission = get_input(show_rename).to_lowercase();
                 if permission == "rename" || permission == "r" {
                     self.set_file_name();
                     self.create_file();
